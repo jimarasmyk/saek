@@ -1,17 +1,26 @@
-from flask import Flask, render_template, request
-app = Flask(__name__)
+<!DOCTYPE html>
+<html lang="el">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
 
-@app.route("/", methods=["GET","POST"])
-def home():
-    msg = None
-    if request.method == "POST":
-        if request.form["user"] == "admin":
-            msg = "Καλώς ήρθες admin"
-        elif request.form["user"] == "saek":
-            msg = "Καλημέρα ΣΑΕΚ Κηφισιάς"
-        else:
-            msg = "Λάθος χρήστης"
-    return render_template("index.html", msg=msg)
+<div class="container">
+    <h1>Welcome ✨</h1>
 
-if __name__ == "__main__":
- app.run()
+    <form method="POST">
+        <input type="text" name="user" placeholder="Username" required>
+        <button type="submit">Enter</button>
+    </form>
+
+    {% if msg %}
+        <div class="message {{ 'success' if 'Καλώς' in msg or 'Καλημέρα' in msg else 'error' }}">
+            {{ msg }}
+        </div>
+    {% endif %}
+</div>
+
+</body>
+</html>
